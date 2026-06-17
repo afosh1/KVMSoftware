@@ -1,0 +1,22 @@
+[package]
+name = "kvm-adapter-native"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description = "Native OS adapters implementing kvm-adapter-api: Linux (x11rb), Windows/macOS (enigo), capture via rdev, clipboard via arboard."
+
+[dependencies]
+kvm-adapter-api = { path = "../adapter-api" }
+kvm-proto = { path = "../proto" }
+arboard = { version = "3", features = ["image-data"] }
+rdev = "0.5"
+tracing.workspace = true
+
+# Linux: pure-Rust X11 (no libxdo); XTEST for injection, RandR for geometry.
+[target.'cfg(target_os = "linux")'.dependencies]
+x11rb = { version = "0.13", features = ["xtest", "randr", "xfixes"] }
+
+# Windows/macOS: enigo handles injection + geometry with no extra system libs.
+[target.'cfg(not(target_os = "linux"))'.dependencies]
+enigo = "0.2"

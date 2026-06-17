@@ -1,0 +1,16 @@
+[package]
+name = "kvm-pairing"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description = "Secure pairing for the LAN KVM: self-signed identity, SPAKE2 PAKE, and Short Authentication String verification."
+
+[dependencies]
+kvm-proto = { path = "../proto" }
+spake2.workspace = true
+sha2.workspace = true
+rand.workspace = true
+rcgen.workspace = true
+uuid.workspace = true
+thiserror.workspace = true

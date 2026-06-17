@@ -1,0 +1,15 @@
+[package]
+name = "kvm-discovery"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description = "mDNS/DNS-SD discovery for the LAN KVM: advertise this device and browse for peers."
+
+[dependencies]
+kvm-proto = { path = "../proto" }
+mdns-sd.workspace = true
+tokio.workspace = true
+uuid.workspace = true
+thiserror.workspace = true
+tracing.workspace = true

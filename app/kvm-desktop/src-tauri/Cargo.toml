@@ -1,0 +1,37 @@
+# Standalone workspace: the Tauri shell needs platform webview libs that the
+# core workspace must not require to build/test. Kept separate on purpose.
+[workspace]
+
+[package]
+name = "kvm-desktop"
+version = "0.1.0"
+edition = "2021"
+description = "KVM Shared Workspace desktop app"
+license = "MIT OR Apache-2.0"
+
+[lib]
+name = "kvm_desktop_lib"
+crate-type = ["lib", "cdylib", "staticlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["rt-multi-thread", "sync", "macros"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+uuid = { version = "1", features = ["v4"] }
+hex = "0.4"
+
+kvm-core = { path = "../../../crates/core" }
+kvm-proto = { path = "../../../crates/proto" }
+kvm-engine = { path = "../../../crates/engine" }
+kvm-transport = { path = "../../../crates/transport" }
+kvm-adapter-api = { path = "../../../crates/adapter-api" }
+kvm-adapter-native = { path = "../../../crates/adapter-native" }
+kvm-discovery = { path = "../../../crates/discovery" }
+kvm-pairing = { path = "../../../crates/pairing" }
+kvm-keystore = { path = "../../../crates/keystore" }

@@ -1,0 +1,24 @@
+# Rust
+/target
+**/*.rs.bk
+Cargo.lock.orig
+
+# Node / Tauri UI
+node_modules/
+app/kvm-desktop/ui/build/
+app/kvm-desktop/ui/.svelte-kit/
+app/kvm-desktop/src-tauri/target/
+dist/
+
+# Local secrets / state (never commit device keys)
+*.local
+*.pem
+*.key
+.kvm-state/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

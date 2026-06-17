@@ -1,0 +1,11 @@
+[package]
+name = "kvm-adapter-api"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description = "OS-adapter trait boundary (input capture/injection, clipboard, cursor geometry) + in-memory mocks. No platform code."
+
+[dependencies]
+kvm-proto = { path = "../proto" }
+thiserror.workspace = true

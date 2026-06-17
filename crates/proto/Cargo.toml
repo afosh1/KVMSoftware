@@ -1,0 +1,16 @@
+[package]
+name = "kvm-proto"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description = "Wire protocol types, codec, and version negotiation for the LAN KVM."
+
+[dependencies]
+serde.workspace = true
+postcard.workspace = true
+uuid.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+proptest.workspace = true

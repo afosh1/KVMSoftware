@@ -1,0 +1,27 @@
+[package]
+name = "kvm-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description = "Headless daemon/CLI for the LAN KVM (servers, testing, and the Tauri sidecar)."
+
+[[bin]]
+name = "kvm"
+path = "src/main.rs"
+
+[dependencies]
+kvm-core = { path = "../core" }
+kvm-proto = { path = "../proto" }
+kvm-engine = { path = "../engine" }
+kvm-transport = { path = "../transport" }
+kvm-adapter-api = { path = "../adapter-api" }
+kvm-adapter-native = { path = "../adapter-native" }
+kvm-discovery = { path = "../discovery" }
+kvm-pairing = { path = "../pairing" }
+kvm-keystore = { path = "../keystore" }
+tokio = { workspace = true, features = ["rt-multi-thread", "macros", "net", "sync", "time", "io-util", "signal"] }
+tracing.workspace = true
+tracing-subscriber.workspace = true
+uuid.workspace = true
+hex.workspace = true

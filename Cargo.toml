@@ -1,0 +1,67 @@
+# LAN Virtual KVM — Cargo workspace.
+# One crate = one responsibility. OS FFI never links into `core`/`proto`.
+[workspace]
+resolver = "2"
+members = [
+    "crates/proto",
+    "crates/core",
+    "crates/transport",
+    "crates/pairing",
+    "crates/keystore",
+    "crates/discovery",
+    "crates/adapter-api",
+    "crates/adapter-native",
+    "crates/engine",
+    "crates/cli",
+]
+# The Tauri desktop shell is its own workspace (needs platform webview libs that
+# the core workspace must not depend on to build/test).
+exclude = ["app/kvm-desktop/src-tauri"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+authors = ["KVMSoftware contributors"]
+rust-version = "1.82"
+repository = "https://example.invalid/kvmsoftware"
+
+# Centralized dependency versions so every crate stays in lockstep.
+[workspace.dependencies]
+# --- serialization / core types (used by proto + core; no I/O) ---
+serde = { version = "1", features = ["derive"] }
+postcard = { version = "1", features = ["use-std"] }
+uuid = { version = "1", features = ["v4", "serde"] }
+thiserror = "1"
+tracing = "0.1"
+bytes = "1"
+
+# --- async runtime / transport (added by transport/discovery/engine) ---
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "sync", "time", "io-util"] }
+async-trait = "0.1"
+quinn = "0.11"
+rustls = { version = "0.23", default-features = false, features = ["ring", "std"] }
+tokio-rustls = { version = "0.26", default-features = false, features = ["ring"] }
+rustls-pemfile = "2"
+rcgen = "0.13"
+sha2 = "0.10"
+spake2 = "0.4"
+rand = "0.8"
+mdns-sd = "0.11"
+keyring = "2"
+directories = "5"
+
+# --- serialization / persistence ---
+serde_json = "1"
+hex = "0.4"
+
+# --- observability ---
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+
+# --- test-only ---
+proptest = "1"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true
