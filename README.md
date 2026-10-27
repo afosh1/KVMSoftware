@@ -106,7 +106,7 @@ hardware.
 ### Prerequisites
 
 - **Rust** stable (`rustup`, pinned via `rust-toolchain.toml`).
-- **Node 20+** and **pnpm 11** (for the UI).
+- **Node 22+** and **pnpm 11** (for the UI).
 - Platform libraries:
   - **Linux (X11)**: `libx11-dev libxtst-dev libxi-dev libxcb1-dev` for the
     native adapter; for the desktop app also `libwebkit2gtk-4.1-dev libgtk-3-dev

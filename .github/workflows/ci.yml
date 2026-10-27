@@ -58,7 +58,7 @@ jobs:
           version: 11
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: pnpm
           cache-dependency-path: app/kvm-desktop/ui/pnpm-lock.yaml
       - run: pnpm -C app/kvm-desktop/ui install --frozen-lockfile
@@ -83,7 +83,7 @@ jobs:
           version: 11
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - name: Install Linux system libraries
         if: runner.os == 'Linux'
         run: |

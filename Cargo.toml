@@ -24,7 +24,7 @@ edition = "2021"
 license = "MIT OR Apache-2.0"
 authors = ["KVMSoftware contributors"]
 rust-version = "1.82"
-repository = "https://example.invalid/kvmsoftware"
+repository = "https://github.com/afosh1/KVMSoftware"
 
 # Centralized dependency versions so every crate stays in lockstep.
 [workspace.dependencies]
