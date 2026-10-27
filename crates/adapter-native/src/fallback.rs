@@ -46,13 +46,18 @@ pub fn adapters() -> Result<PlatformAdapters> {
 
 pub struct EnigoInjection;
 
-fn map_button(b: MouseButton) -> EButton {
+/// enigo has no Back/Forward buttons on macOS, so those presses are dropped there.
+fn map_button(b: MouseButton) -> Option<EButton> {
     match b {
-        MouseButton::Left => EButton::Left,
-        MouseButton::Right => EButton::Right,
-        MouseButton::Middle => EButton::Middle,
-        MouseButton::Back => EButton::Back,
-        MouseButton::Forward => EButton::Forward,
+        MouseButton::Left => Some(EButton::Left),
+        MouseButton::Right => Some(EButton::Right),
+        MouseButton::Middle => Some(EButton::Middle),
+        #[cfg(not(target_os = "macos"))]
+        MouseButton::Back => Some(EButton::Back),
+        #[cfg(not(target_os = "macos"))]
+        MouseButton::Forward => Some(EButton::Forward),
+        #[cfg(target_os = "macos")]
+        MouseButton::Back | MouseButton::Forward => None,
     }
 }
 
@@ -155,9 +160,10 @@ impl InputInjection for EnigoInjection {
         enigo()?.move_mouse(dx, dy, Coordinate::Rel).map_err(be)
     }
     fn button(&self, button: MouseButton, pressed: bool) -> Result<()> {
-        enigo()?
-            .button(map_button(button), dir(pressed))
-            .map_err(be)
+        let Some(button) = map_button(button) else {
+            return Ok(());
+        };
+        enigo()?.button(button, dir(pressed)).map_err(be)
     }
     fn wheel(&self, dx: i32, dy: i32) -> Result<()> {
         let mut e = enigo()?;
